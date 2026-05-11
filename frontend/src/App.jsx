@@ -1,6 +1,8 @@
-import { Show, SignInButton, SignUpButton, useAuth, UserButton } from '@clerk/react'
+import { useAuth } from '@clerk/react'
 import PageLoader from './components/PageLoader';
 import Layout from './components/Layout';
+import { Route, Routes } from 'react-router';
+import HomePage from './pages/HomePage';
 
 function App() {
   const { isLoaded } = useAuth();
@@ -8,18 +10,11 @@ function App() {
   if (!isLoaded) return <PageLoader />;
   return (
     <Layout>
- <header>
-        <Show when="signed-out">
-          <SignInButton mode='modal'/>
-          <SignUpButton mode='modal'/>
-        </Show>
-        <Show when="signed-in">
-          <UserButton />
-        </Show>
-      </header>
+
+    <Routes>
+      <Route path="/" element={<HomePage />} />
       
-      <button className='btn btn-primary'>Hello</button>
-      <button className='btn btn-secondary'>Hello</button>
+    </Routes>
     </Layout>
   )
 }

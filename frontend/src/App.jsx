@@ -3,10 +3,12 @@ import PageLoader from './components/PageLoader';
 import Layout from './components/Layout';
 import { Route, Routes } from 'react-router';
 import HomePage from './pages/HomePage';
+import OrdersPage from './pages/OrdersPage';
+import { Navigate } from 'react-router';
 import CartPage from './pages/CartPage';
 
 function App() {
-  const { isLoaded } = useAuth();
+  const { isLoaded, isSignedIn } = useAuth();
 
   if (!isLoaded) return <PageLoader />;
   return (
@@ -15,6 +17,8 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/cart" element={<CartPage />} />
+      <Route path="/orders" element={isSignedIn ? <OrdersPage /> : <Navigate to={"/"} replace/>} />
+
       
     </Routes>
     </Layout>
